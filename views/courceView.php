@@ -172,6 +172,10 @@
   </head>
   <body>
     <div class="testbox">
+      
+      <h3><a href="../index.php">Course Registration</a></h3>
+    </div>
+    <div class="testbox">
       <form action="../controllers/studentReg.php" method="POST">
         <div class="banner">
           <h1></h1>

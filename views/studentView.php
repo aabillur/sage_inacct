@@ -173,6 +173,10 @@ error_reporting(E_ALL);
     </style>
   </head>
   <body>
+     <div class="testbox">
+      
+      <h3><a href="../index.php">Student Registration</a></h3>
+    </div>
     <div class="testbox">
       <form action="../controllers/studentReg.php" method="POST">
         <div class="banner">

@@ -172,7 +172,10 @@ error_reporting(E_ALL);
     </style>
   </head>
   <body>
-    
+     <div class="testbox">
+      
+      <h3><a href="../index.php">Report</a></h3>
+    </div>
     <div class="testbox">
       <form method="GET" action="index.php">
         <table border="1">
