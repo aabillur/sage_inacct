@@ -12,6 +12,11 @@
   <a href="views/regdetails.php">Reports</a>
 </div>
 
-<div>
-	<h1 align="center">Student Course Registration</h1>
+<div class="testbox">
+	
 </div>
+
+<div class="testbox">
+      <h3>Student Course Registration</h3>
+</div>
+</body>

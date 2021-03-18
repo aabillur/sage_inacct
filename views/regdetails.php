@@ -46,7 +46,6 @@
           </tr>
           <?php
             foreach ($studentDetails['studentInfo'] as $key => $value) {
-                //echo '<tr><td>'.$value['slNo'].'</td>';
                 echo '<tr><td>'.$value['fname'].' '.$value['lname'].'</td>';
                 echo '<td>'.$value['cource'].'</td>';
                 echo '<td>'.$value['c_detail'].'</td></td>';
