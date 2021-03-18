@@ -68,7 +68,7 @@
     </div>
     <div class="testbox">
       <form method="GET" action="index.php">
-        <table border="1">
+        <table border="1" align="center">
           <tr>
             <th style="width: 200px">Operation</th>
             <th style="width: 250px">First Name</th>
