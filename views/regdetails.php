@@ -169,8 +169,14 @@
     </style>
   </head>
   <body>
+    <div class="scrollmenu">
+  <a href="studentView.php">Student</a>
+  <a href="courceView.php">Cource</a>
+  <a href="courceSubscribeView.php">Subscribe</a>
+  <a href="regdetails.php">Reports</a>
+  
+</div>
      <div class="testbox">
-      
       <h3><a href="../index.php">Report</a></h3>
     </div>
     <div class="testbox">

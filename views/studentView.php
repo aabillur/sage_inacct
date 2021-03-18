@@ -25,6 +25,23 @@
     <title>SAGE Intacct</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
+      div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
       /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: #555;
@@ -170,8 +187,14 @@
     </style>
   </head>
   <body>
+<div class="scrollmenu">
+  <a href="studentView.php">Student</a>
+  <a href="courceView.php">Cource</a>
+  <a href="courceSubscribeView.php">Subscribe</a>
+  <a href="regdetails.php">Reports</a>
+  
+</div>
      <div class="testbox">
-      
       <h3><a href="../index.php">Student Registration</a></h3>
     </div>
     <div class="testbox">
