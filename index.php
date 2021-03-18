@@ -2,14 +2,16 @@
 <html>
 <head>
   <title>Sage</title>
+   <link rel="stylesheet" href="views/web/styles.css">
 </head>
 <body>
-<a href="views/studentView.php">Student Registration</a>
-</br>
-<a href="views/courceView.php">Course Registration</a>
-</br>
-<a href="views/courceSubscribeView.php">Cource Subscribe</a>
-</br>
-<a href="views/regdetails.php">Registration Details</a>
-</body>
-</html>
+<div class="scrollmenu">
+  <a href="views/studentView.php">Student</a>
+  <a href="views/courceView.php">Cource</a>
+  <a href="views/courceSubscribeView.php">Subscribe</a>
+  <a href="views/regdetails.php">Reports</a>
+</div>
+
+<div>
+	<h1 align="center">Student Course Registration</h1>
+</div>
