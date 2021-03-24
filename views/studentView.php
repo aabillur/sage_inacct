@@ -55,7 +55,7 @@
         </div>
         <div class="item">
           <p>Phone</p>
-          <input type="number" name="phone" min="10" max = "10" placeholder="### ### ####"/>
+          <input type="number" name="phone" placeholder="### ### ####"/>
         </div>
         <div class="item">
           <p>D O B</p>
@@ -137,7 +137,7 @@
     <input type="date" placeholder="DOB" id = "edob" name="dob" required>
 
     <label for="phone"><b>Phone</b></label>
-    <input type="number" placeholder="Phone" id = "ephone" name="phone" min="10" max = "10" required>
+    <input type="number" placeholder="Phone" id = "ephone" name="phone" required>
 
     <button type="submit" class="btn">Submit</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
