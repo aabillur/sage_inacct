@@ -33,8 +33,11 @@ CREATE TABLE `sage_student_course_info` (
   `created_at` int unsigned NOT NULL COMMENT 'Create Time',
   `updated_at` int unsigned NOT NULL DEFAULT '0' COMMENT 'Update Time',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_srudent_cource` (`student_id`,`cource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Student Cource Info';
+  UNIQUE KEY `uk_srudent_cource` (`student_id`,`cource_id`),
+  KEY `cource_id` (`cource_id`),
+  CONSTRAINT `sage_student_course_info_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `sage_student_info` (`student_id`),
+  CONSTRAINT `sage_student_course_info_ibfk_2` FOREIGN KEY (`cource_id`) REFERENCES `sage_cource_info` (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Student Cource Info'
 
 DROP TABLE IF EXISTS `sage_student_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
