@@ -10,14 +10,14 @@ class Scm_config
 {
     public static $scm_config = [
             'db' => [
-            'db.host' => 'database-1.cftbmy3j49jy.ap-south-1.rds.amazonaws.com',
-            'db.user' => 'admin',
-            'db.password' => 'password',
-            'db.db' => 'sage'
+            'db.host' => '',
+            'db.user' => '',
+            'db.password' => '',
+            'db.db' => ''
         ],'dbr' => [
-            'db.host' => 'database-1.cftbmy3j49jy.ap-south-1.rds.amazonaws.com',
-            'db.user' => 'admin',
-            'db.password' => 'password',
-            'db.db' => 'sage'
+            'db.host' => '',
+            'db.user' => '',
+            'db.password' => '',
+            'db.db' => ''
     ]];
 }
