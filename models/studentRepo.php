@@ -3,6 +3,7 @@
          * @author : Arun Billur
          */
         require_once 'queries.php';
+        
         interface StudentsRepo
         {
             public function addStudentInfo(Student $student);
@@ -22,11 +23,11 @@
                 $data = [
                     'fname' => $studentInfo['firstName'],
                     'lname' => $studentInfo['lastName'],
-                    'dob' => strtotime($studentInfo['dob']),
+                    'dob'   => strtotime($studentInfo['dob']),
                     'phone' => $studentInfo['contactNo'],
                     'created_at' => time()
                 ];
-                if ($this->queries->insertQuery('sage_student_info', $data)) {
+                if ($this->queries->insert(Queries::STUDENT_INFO, $data)) {
                     return true;
                 }
             }
@@ -39,7 +40,7 @@
                     'c_detail' => $courceInfo['courceDetails'],
                     'created_at' => time()
                 ];
-                if ($this->queries->insertQuery('sage_cource_info', $data)) {
+                if ($this->queries->insert(Queries::COURCE_INFO, $data)) {
                     return true;
                 }
             }
@@ -49,18 +50,18 @@
                 $data = [
                     'fname' => $params['fname'],
                     'lname' => $params['lname'],
-                    'dob' => strtotime($params['dob']),
+                    'dob'   => strtotime($params['dob']),
                     'phone' => $params['phone'],
                     'updated_at' => time()
                 ];
-                if ($this->queries->updateQuery('sage_student_info', $data, 'student_id', $params['student_id'])) {
+                if ($this->queries->update(Queries::STUDENT_INFO, $data, 'student_id', $params['student_id'])) {
                     return true;
                 }
             }
 
             public function deleteStudentInfo($params)
             {
-                if ($this->queries->deleteQuery('sage_student_info', 'student_id', $params['student_id'])) {
+                if ($this->queries->delete(Queries::STUDENT_INFO, 'student_id', $params['student_id'])) {
                     return true;
                 }
             }
@@ -72,7 +73,7 @@
                     'cource_id'  => $params['cource'],
                     'created_at' => time()
                 ];
-                if ($this->queries->replaceQuery('sage_student_course_info', $data)) {
+                if ($this->queries->replace(Queries::STUDENT_COURCE_INFO, $data)) {
                     return true;
                 }
             }
@@ -80,18 +81,18 @@
             public function editCourceInfo($params)
             {
                 $data = [
-                    'cource' => $params['cource'],
-                    'c_detail' => $params['cDetail'],
+                    'cource'     => $params['cource'],
+                    'c_detail'   => $params['cDetail'],
                     'updated_at' => time()
                 ];
-                if ($this->queries->updateQuery('sage_cource_info', $data, 'course_id', $params['course_id'])) {
+                if ($this->queries->update(Queries::COURCE_INFO, $data, 'course_id', $params['course_id'])) {
                     return true;
                 }
             }
 
             public function deleteCourceInfo($params)
             {
-                if ($this->queries->deleteQuery('sage_cource_info', 'course_id', $params['cource_id'])) {
+                if ($this->queries->delete(Queries::COURCE_INFO, 'course_id', $params['cource_id'])) {
                     return true;
                 }
             }

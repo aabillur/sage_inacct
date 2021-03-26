@@ -4,34 +4,43 @@
          */
         class Queries
         {
-            private $connection;
+            const STUDENT_INFO = 'sage_student_info';
+            const STUDENT_COURCE_INFO = 'sage_student_course_info';
+            const COURCE_INFO = 'sage_cource_info';
+            
+            private $db;
+            private $dbr;
             public function __construct()
             {
                 require_once  dirname(__DIR__, 1)."/scm_config.php";
+                $this->db  = $this->dbConnection(Scm_config::$scm_config['db']);
+                $this->dbr = $this->dbConnection(Scm_config::$scm_config['dbr']);
+            }
+
+            public function dbr()
+            {
+                return $this->dbr;
+            }
+
+            private function dbConnection($scm_config)
+            {
                 try {
-                    $conn = new PDO("mysql:host=".$scm_config['db.slave.host'].";dbname=".$scm_config['db.slave.db']."", $scm_config['db.slave.user'], $scm_config['db.slave.password']);
+                    $conn = new PDO("mysql:host=".$scm_config['db.host'].";dbname=".$scm_config['db.db']."", $scm_config['db.user'], $scm_config['db.password']);
+
                     //error mode to exception
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $this->connection = $conn;
+                    return $conn;
                 } catch (PDOException $e) {
                     echo "Connection failed: " . $e->getMessage();
                 }
             }
 
-            public function execute($query)
-            {
-                /*$stmt = $this->connection->prepare($query);
-                $stmt->execute();
-                if (!$stmt->execute();) {
-                    throw new Exception("Execute failed:");
-                }
-                return true;*/
-            }
-
             //Get query result in array
-            public function query_response($query)
+            public function select($table, $fields = '*', $where = null)
             {
-                $stmt = $this->connection->prepare($query);
+                $query = "SELECT {$fields} FROM {$table} {$where}";
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $stmt = $dbConn->prepare($query);
                 $stmt->execute();
                 $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 if (!empty($res)) {
@@ -41,10 +50,11 @@
                 }
             }
 
-
-            public function num_of_rows($query)
+            public function rows($table, $fields = '*', $where = null, $dbConn = null)
             {
-                $stmt = $this->connection->prepare($query);
+                $query = "SELECT {$fields} FROM {$table} {$where}";
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $stmt = $dbConn->prepare($query);
                 $stmt->execute();
                 $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 if (!empty($res)) {
@@ -53,9 +63,39 @@
                 return 0;
             }
 
-            public function deleteQuery($table, $column, $id)
+
+            public function selectJoin($query, $bindVal = array())
             {
-                $stmt = $this->connection->prepare("DELETE FROM {$table} WHERE {$column} = :{$column}");
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $stmt = $dbConn->prepare($query);
+                if (!empty($bindVal)) {
+                    $stmt->bindValue($bindValue);
+                }
+                $stmt->execute();
+                $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                if (!empty($res)) {
+                    return $res;
+                } else {
+                    return false;
+                }
+            }
+
+            public function rowsJoin($query, $dbConn = null)
+            {
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $stmt = $dbConn->prepare($query);
+                $stmt->execute();
+                $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                if (!empty($res)) {
+                    return sizeof($res);
+                }
+                return 0;
+            }
+
+            public function delete($table, $column, $id)
+            {
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $stmt = $dbConn->prepare("DELETE FROM {$table} WHERE {$column} = :{$column}");
                 $stmt->bindValue(':'.$column, $id);
                 if (!$stmt->execute()) {
                     throw new Exception("Execute failed:");
@@ -64,44 +104,47 @@
             }
 
 
-            public function updateQuery($table, $data, $whereClause, $whereVal)
+            public function update($table, $data, $whereClause, $whereVal)
             {
-                $this->connection->beginTransaction();
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $dbConn->beginTransaction();
                 foreach ($data as $column => $value) {
                     $stmt = "UPDATE {$table} SET {$column} = :{$column} WHERE {$whereClause} = :{$whereClause}";
-                    $stmt = $this->connection->prepare($stmt);
+                    $stmt = $dbConn->prepare($stmt);
                     $stmt->bindValue(':'.$column, $value);
                     $stmt->bindValue(':'.$whereClause, $whereVal);
                     $stmt->execute();
                 }
-                $this->connection->commit();
+                $dbConn->commit();
             }
 
-            public function insertQuery($table, $data)
+            public function insert($table, $data)
             {
-                $this->connection->beginTransaction();
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $dbConn->beginTransaction();
                 $sql = "INSERT INTO {$table} (".implode(',', array_keys($data)).") VALUES (:".implode(',:', array_keys($data)).")";
-                $stmt = $this->connection->prepare($sql);
+                $stmt = $this->db->prepare($sql);
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(':'.$key, $value);
                 }
                 if (!$stmt->execute()) {
                     throw new Exception("Execute failed:");
                 }
-                $this->connection->commit();
+                $dbConn->commit();
             }
 
-            public function replaceQuery($table, $data)
+            public function replace($table, $data)
             {
-                $this->connection->beginTransaction();
+                $dbConn = empty($dbConn) ? $this->db : $dbConn;
+                $dbConn->beginTransaction();
                 $sql = "REPLACE INTO {$table} (".implode(',', array_keys($data)).") VALUES (:".implode(',:', array_keys($data)).")";
-                $stmt = $this->connection->prepare($sql);
+                $stmt = $dbConn->prepare($sql);
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(':'.$key, $value);
                 }
                 if (!$stmt->execute()) {
                     throw new Exception("Execute failed:");
                 }
-                $this->connection->commit();
+                $dbConn->commit();
             }
         }
